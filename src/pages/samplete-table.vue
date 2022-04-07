@@ -1,5 +1,6 @@
 <template>
-
+  <div  >
+    ytfhgfjhfjhgf
     <CrudDataTable
       :headers="headers"
       :items="data"
@@ -29,7 +30,7 @@
       </template>
      
     </CrudDataTable>
-
+  </div>
 </template>
 <style scoped>
        .ma-2 {
