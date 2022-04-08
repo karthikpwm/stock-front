@@ -1,6 +1,6 @@
 <template>
   <div  >
-    ytfhgfjhfjhgf
+
     <CrudDataTable
       :headers="headers"
       :items="data"
@@ -24,9 +24,9 @@
             PERFORM : <strong class="blue--text text--darken-3" >
                {{perform}}</strong> </div>
           </span>
-           <div id="app">
+           <!-- <div id="app">
     <h1>{{localTime}}</h1>
-  </div>
+  </div> -->
       </template>
      
     </CrudDataTable>
@@ -51,7 +51,7 @@ import { URL } from '../helper/consts.js'
     mounted () {
     this.fetchData();
     //this.timer = setInterval(this.fetchData, 300000);
-    this.showLocaleTime();
+    // this.showLocaleTime();
     
 
     },
@@ -63,21 +63,21 @@ import { URL } from '../helper/consts.js'
           vm.fetchData();
         })
       },
-      showLocaleTime: function () {
-      var time = this;
-      setInterval(function () {
-      time.localTime = new Date().toLocaleTimeString();
-      }, 5000);
-      if(time === "18:00:00")
-      {
+      // showLocaleTime: function () {
+      // var time = this;
+      // setInterval(function () {
+      // time.localTime = new Date().toLocaleTimeString();
+      // }, 5000);
+      // if(time === "18:00:00")
+      // {
         
-          axios.update(`${URL}analytic/`,{
-            weightage : this.newweight
-          })
+      //     axios.update(`${URL}analytic/`,{
+      //       weightage : this.newweight
+      //     })
 
         
-      }
-      },
+      // }
+      // },
       fetchData () {
         
        axios
@@ -214,7 +214,7 @@ import { URL } from '../helper/consts.js'
         totalbts : 0,
         nifty : 0,
         perform : 0,
-        localTime: " ",
+        // localTime: " ",
         analyticLiveData : {
           // Infosys : 3,
 
@@ -256,7 +256,9 @@ import { URL } from '../helper/consts.js'
         
       }
     },
-    
+  
+  
+  
   }
   
   /*
