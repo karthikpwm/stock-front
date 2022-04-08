@@ -107,7 +107,7 @@ import { URL } from '../helper/consts.js'
       .get(`https://yfapi.net/v6/finance/quote?region=IN&lang=en&symbols=${joinSymbol},%2C%5ECRSLDX`, {
         headers: {
            'accept': 'application/json',
-        'X-API-KEY': 'J6WzGEj49F59U8eeu3kSr210VOXDYVCiacvOx7fS'
+        'X-API-KEY': 'J6WzGEj49F59U8eeu3kSr210VOXDYVCiacvOx7f'
         }
       }).then( (res) => {
         //console.log('res',res.data.quoteResponse.result)
