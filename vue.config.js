@@ -3,8 +3,8 @@ module.exports = defineConfig({
   transpileDependencies: [
     'vuetify'
   ],
-  devServer: {
-    port: process.env.PORT || 8080,
-    host: process.env.HOST || 'localhost'
-  }
+  // devServer: {
+  //   port: process.env.PORT || 8080,
+  //   host: process.env.HOST || 'localhost'
+  // }
 })
