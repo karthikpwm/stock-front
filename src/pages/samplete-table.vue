@@ -79,9 +79,9 @@ import { URL } from '../helper/consts.js'
       // }
       // },
       fetchData () {
-        console.log(URL,'url')
+        
        axios
-      .get(`https://afternoon-peak-90299.herokuapp.com/analytic`)     
+      .get(`${URL}analytic`)     
       .then( async (res) => {
         console.log(res.data)
         let resData = res.data.data;
