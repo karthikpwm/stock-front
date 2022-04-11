@@ -79,7 +79,7 @@ import { URL } from '../helper/consts.js'
       // }
       // },
       fetchData () {
-        
+        console.log(URL,'url')
        axios
       .get(`${URL}analytic`)     
       .then( async (res) => {
