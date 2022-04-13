@@ -4,12 +4,13 @@
     :value="value"
     :headers="headers"
     :items="items"
-    :items-per-page="100"
+    :items-per-page="itemsPerPage"
     :show-select="showSelect"
     sort-by="calories"
     class="elevation-1"
     :search="search"
     :item-key="itemKey"
+    :loading="loading"
     return-object
     mobile-breakpoint="0"
   >
@@ -144,6 +145,17 @@
 <script>
   export default {
     props:{
+      loading : {
+        default : function() {
+          return false;
+        }
+      },
+      itemsPerPage : {
+        type : Number,
+        default : function() {
+          return 5
+        }
+      },
       setEditedItem : {
         type: Object,
         default: function(){

@@ -4,7 +4,8 @@
     <CrudDataTable
       :headers="headers"
       :items="data"
-      :items-per-page="5" 
+      :itemsPerPage="15" 
+      :loading="loading"
       :addBtn="false"
       :setEditedItem.sync="setEditedItem"
       :defaultItem="defaultItem"
@@ -101,22 +102,24 @@ import { URL } from '../helper/consts.js'
     components:{
       CrudDataTable
     },
-    mounted () {
-    this.fetchData();
-    
+    async mounted () {
+      this.loading = true
+    await this.fetchData();
+    this.loading = false
     //this.timer = setInterval(this.fetchData, 300000);
     // this.showLocaleTime();
     
 
     },
     methods : {
-      deleteItem(data) {
-        
+      async deleteItem(data) {
+        this.loading = true
         let vm = this
-        axios.delete(`${URL}analytic/${data.item.analytic_id}`)
-        .then( function () {
-          vm.fetchData();
+        await axios.delete(`${URL}analytic/${data.item.analytic_id}`)
+        .then( async function () {
+          await vm.fetchData();
         })
+        this.loading = false
       },
       //editItem (item) {
        // console.log(item, 'save [rpcess asdfasdfasdf')
@@ -131,22 +134,31 @@ import { URL } from '../helper/consts.js'
       //   }
       // },
           async upload(){
+            this.loading=true
         //console.log(data.analytic_id) 
+        const vm = this;
          let pass = []
        await this.data.forEach(val => {
               pass.push({analytic_id : val.analytic_id, weightage : val.newweight})
           })
-         await axios.post(`${URL}analytic/uploadRecord`,{bulkData : pass})
-          
+         await axios.post(`${URL}analytic/uploadRecord`,{bulkData : pass}).then(async function(){
+           await vm.fetchData()
+         })
+          this.loading=false
       },
-            UpdateItem(data){     
+          async  UpdateItem(data){     
+            this.loading = true
         //console.log(data.analytic_id) 
-           axios.put(`${URL}analytic/${data.item.analytic_id}`,{
+        const vm = this;
+          await axios.put(`${URL}analytic/${data.item.analytic_id}`,{
            name : data.item.name,
            weightage : data.item.weightage,
            symbol : data.item.symbol,
            analytic_id : data.item.analytic_id
-           })
+           }).then( async function(){
+           await vm.fetchData()
+         }) 
+         this.loading= false
            //this.$router.go()
       },
            
@@ -166,9 +178,8 @@ import { URL } from '../helper/consts.js'
         
       // }
       // },
-      fetchData () {
-        
-       axios
+      async fetchData () {
+       await axios
       .get(`${URL}analytic`)     
       .then( async (res) => {
         console.log(res.data)
@@ -298,6 +309,7 @@ import { URL } from '../helper/consts.js'
     },
     data () {
       return {
+        loading: false,
         timer: '',
         data : [],
         totalbts : 0,
