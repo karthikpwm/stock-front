@@ -147,7 +147,7 @@ import { URL } from '../helper/consts.js'
            symbol : data.item.symbol,
            analytic_id : data.item.analytic_id
            })
-           this.$router.go()
+           //this.$router.go()
       },
            
       
