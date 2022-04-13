@@ -223,9 +223,11 @@
       },
       editedItem : {
         get() {
+          //console.log(this.setEditedItem, 'get set i')
           return this.setEditedItem
         },
         set( val ) {
+          //console.log(val, 'compute porcess')
           this.$emit('update:setEditedItem', val)
         }, 
       }
@@ -261,6 +263,7 @@
         if(this.fetchItem){
           await this.$emit('editItem', {item : item})
         } else {
+          //console.log('asdf', item)
           this.editedItem = Object.assign({}, item)
         }
         this.dialog = true
@@ -294,7 +297,7 @@
       },
       async save () {
         const validate = await this.$refs.form.validate();
-        console.log(validate)
+        //console.log(validate)
         if(!validate) {
           return false; 
         }

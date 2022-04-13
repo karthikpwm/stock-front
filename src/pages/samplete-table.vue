@@ -1,20 +1,52 @@
 <template>
-  <div  >
+  <div>
 
     <CrudDataTable
       :headers="headers"
       :items="data"
       :items-per-page="5" 
       :addBtn="false"
+      :setEditedItem.sync="setEditedItem"
+      :defaultItem="defaultItem"
       @deleteItem="deleteItem"
+      @UpdateItem="UpdateItem"
+      
+      @upload="upload"
       class="elevation-1"
       >       
-
+        <template v-slot:forms>
+          <v-row
+            dense
+          >
+            <v-col
+              cols="6"
+              md="3"
+            >
+              <v-text-field
+                v-model="setEditedItem.name"
+                label="Name of the stock"
+                type="text"
+              ></v-text-field>
+              <v-text-field
+                v-model="setEditedItem.weightage"
+                label="Weightage"
+                type="number"
+              ></v-text-field>
+              <v-text-field
+                v-model="setEditedItem.symbol"
+                label="Symbol"
+                type="text"
+              >
+              </v-text-field>
+            </v-col>
+          </v-row>
+        </template>
        <template v-slot:[`footer.prepend`]>
         <span
           class="ma-2"
           
          >
+         
             TOTAL BTS  : <strong class="green--text text--lighten-2" >
               {{totalbts}} </strong>  
               <br/>
@@ -25,13 +57,34 @@
                {{perform}}</strong> </div>
           </span>
            <!-- <div id="app">
-    <h1>{{localTime}}</h1>
-  </div> -->
+           <h1>{{localTime}}</h1>
+            </div> -->
+            
       </template>
-     
+   
     </CrudDataTable>
+   
+<template >
+    
+      <br>
+      <br>
+       <v-row
+    align="center"
+    justify="space-around" >
+    <v-btn depressed
+    color="primary"
+    @click="upload()">
+    UPLOAD
+    </v-btn>
+    </v-row>
+    
+  </template>
+   
   </div>
+  
+
 </template>
+
 <style scoped>
        .ma-2 {
         font-size: 1.2rem;
@@ -50,6 +103,7 @@ import { URL } from '../helper/consts.js'
     },
     mounted () {
     this.fetchData();
+    
     //this.timer = setInterval(this.fetchData, 300000);
     // this.showLocaleTime();
     
@@ -57,12 +111,46 @@ import { URL } from '../helper/consts.js'
     },
     methods : {
       deleteItem(data) {
+        
         let vm = this
         axios.delete(`${URL}analytic/${data.item.analytic_id}`)
         .then( function () {
           vm.fetchData();
         })
       },
+      //editItem (item) {
+       // console.log(item, 'save [rpcess asdfasdfasdf')
+        // this.setEditedItem = Object.assign({}, item.item)
+     // },
+      // editItem(data){
+      //   axios.put(`${URL}analytic/${data.item.analytic_id}`),{
+      //       name : this.nameofthestock,
+      //       weightage : this.weightage,
+      //       symbol : this.symbol
+
+      //   }
+      // },
+          async upload(){
+        //console.log(data.analytic_id) 
+         let pass = []
+       await this.data.forEach(val => {
+              pass.push({analytic_id : val.analytic_id, weightage : val.newweight})
+          })
+         await axios.post(`${URL}analytic/uploadRecord`,{bulkData : pass})
+          
+      },
+            UpdateItem(data){     
+        //console.log(data.analytic_id) 
+           axios.put(`${URL}analytic/${data.item.analytic_id}`,{
+           name : data.item.name,
+           weightage : data.item.weightage,
+           symbol : data.item.symbol,
+           analytic_id : data.item.analytic_id
+           })
+           this.$router.go()
+      },
+           
+      
       // showLocaleTime: function () {
       // var time = this;
       // setInterval(function () {
@@ -96,11 +184,10 @@ import { URL } from '../helper/consts.js'
           symbol.push(element.symbol)
           }
           //console.log('my', element.symbol)
-        })
-        
-        
+        })  
         let joinSymbol = symbol.join(',')
        let analyticLiveData = {}
+         
               //console.log(symbol, joinSymbol)
      await  axios
       // .get(`http://api.marketstack.com/v1/eod?access_key=cc070a926eb089902727bec546a59253&symbols=INFY,TCS,ACN,IBM,RELIANCE,BALAMINES,DOLLAR&date_from=2022-03-29&date_to=2022-03-29`)
@@ -137,6 +224,7 @@ import { URL } from '../helper/consts.js'
    
         resData = resData.map(function(val) {
          // val.per =(val.weightage / total) * 100;
+          
           val.per = val.weightage;
           val.live = analyticLiveData[ val.symbol] || 0
           val.bts = (val.live/100) * val.per; 
@@ -156,6 +244,7 @@ import { URL } from '../helper/consts.js'
 
         //console.log(val.per, val.newwe)
          val.newweight = parseFloat(val.per) + parseFloat(val.newwe)
+         
 //          calculateSum() {
 //           var sum = 0;
 //     for(let value in val.newweight){
@@ -171,8 +260,8 @@ import { URL } from '../helper/consts.js'
          
         })
 
-
-
+        //console.log(parseInt(bc))
+        
 
         let totalbts = 0;
         let sum = 0;
@@ -180,7 +269,7 @@ import { URL } from '../helper/consts.js'
           totalbts += parseFloat(val.bts);
          sum += parseFloat(val.newweight)
         });
-        console.log(sum)
+        //console.log(sum)
         let sumweight = 0;
         resData.forEach(val => {
         sumweight = (val.newweight/sum) * 100;
@@ -214,13 +303,20 @@ import { URL } from '../helper/consts.js'
         totalbts : 0,
         nifty : 0,
         perform : 0,
+        //no : 0,
         // localTime: " ",
         analyticLiveData : {
           // Infosys : 3,
 
         },
+        anaid : { },
+        setEditedItem : {},
+        defaultItem : {
+          name : 0,
+          weightage : 0,
+          symbol : 0
+        },
         headers: [
-          
           {
             text: 'Name of The Stock',
             align: 'start',
