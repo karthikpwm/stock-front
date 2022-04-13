@@ -284,7 +284,7 @@ import { URL } from '../helper/consts.js'
         let sumweight = 0;
         resData.forEach(val => {
         sumweight = (val.newweight/sum) * 100;
-        val.newweight=sumweight.toFixed(3);
+        val.newweight=sumweight.toFixed(2);
         })
         
         let cd = totalbts.toFixed(3);
