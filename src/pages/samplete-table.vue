@@ -270,7 +270,7 @@ import { URL } from '../helper/consts.js'
           return val
          
         })
-
+        resData.forEach((data, index) => data.no = index + 1);
         //console.log(parseInt(bc))
         
 
@@ -329,6 +329,12 @@ import { URL } from '../helper/consts.js'
           symbol : 0
         },
         headers: [
+          {
+             text: 'No',
+             align: 'start',
+             sortable: false,
+             value: 'no'
+          },
           {
             text: 'Name of The Stock',
             align: 'start',
