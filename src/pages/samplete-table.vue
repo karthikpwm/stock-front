@@ -246,10 +246,10 @@ import { URL } from '../helper/consts.js'
           // val.per=xy;
           // let xy = val.per.toFixed(2);
           // val.per = xy;
-          let ab =val.bts.toFixed(3);
+          let ab =val.bts.toFixed(2);
           val.bts=ab;
           //console.log(val.live)
-          let cd = val.live.toFixed(3);
+          let cd = val.live.toFixed(2);
           val.live=cd;
           val.newwe = (val.per/100) * val.live;
 
@@ -287,7 +287,7 @@ import { URL } from '../helper/consts.js'
         val.newweight=sumweight.toFixed(2);
         })
         
-        let cd = totalbts.toFixed(3);
+        let cd = totalbts.toFixed(2);
           totalbts = cd;
       // console.log(resData)
         this.data = resData;
@@ -295,7 +295,7 @@ import { URL } from '../helper/consts.js'
 
         let perform = 0;
         perform = totalbts - this.nifty;
-        this.perform = perform.toFixed(3);
+        this.perform = perform.toFixed(2);
         
         // let fetch = this.fetchData;
         // console.log(fetch)
