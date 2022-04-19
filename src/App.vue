@@ -121,7 +121,7 @@
     },
     data () {
       return {
-        drawer : null
+        drawer : false
       }
     },
     methods : {
