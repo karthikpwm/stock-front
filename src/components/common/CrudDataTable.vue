@@ -91,6 +91,15 @@
 
       </v-toolbar>
     </template>
+   
+   <template v-slot:[`item.live`]="{ item }">
+      <v-chip
+        :color="getColor(item.live)"
+        dark
+      >
+        {{ item.live }}
+      </v-chip>
+    </template>
 
     <template v-for="(_,slot) in $scopedSlots"  v-slot:[slot]="props" >
       <slot :name="slot" v-bind="props"   ></slot>
@@ -306,6 +315,12 @@
           this.editedItem = Object.assign({}, this.defaultItem)
           this.editedIndex = -1
         })
+      },
+      
+    getColor (live) {
+        if (live > 0) return 'green'
+        else if (live < 0) return 'red'
+        else return 'green'
       },
       async save () {
         const validate = await this.$refs.form.validate();
