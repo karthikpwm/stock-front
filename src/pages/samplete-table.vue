@@ -338,12 +338,12 @@ import { URL } from '../helper/consts.js'
           {
             text: 'Name of The Stock',
             align: 'start',
-            sortable: false,
+            
             value: 'name',
           },
           { text: 'Weightage',
             align: 'start',
-            sortable: false,
+            
             value: 'weightage'
            },
           //  {
