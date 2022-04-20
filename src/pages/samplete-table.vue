@@ -275,15 +275,16 @@ import { URL } from '../helper/consts.js'
         
 
         let totalbts = 0;
-        let sum = 0;
+        //let sum = 0;
         resData.forEach(val => {
           totalbts += parseFloat(val.bts);
-         sum += parseFloat(val.newweight)
+         //sum += parseFloat(val.newweight)
         });
         //console.log(sum)
         let sumweight = 0;
         resData.forEach(val => {
-        sumweight = (val.newweight/sum) * 100;
+        //sumweight = (val.newweight/sum) * 100;
+        sumweight = val.newweight;
         val.newweight=sumweight.toFixed(2);
         })
         
