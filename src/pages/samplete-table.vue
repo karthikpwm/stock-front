@@ -195,7 +195,7 @@ import { URL } from '../helper/consts.js'
       // },
       async fetchData () {
        await axios
-      .get(`${URL}analytic${this.portfolio}`)     
+      .get(`${URL}analytic/${this.portfolio}`)     
       .then( async (res) => {
         console.log(res.data)
         let resData = res.data.data;
