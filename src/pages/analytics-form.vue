@@ -36,7 +36,7 @@
       required
     ></v-text-field> -->
 
-    <v-autocomplete
+    <v-combobox
       v-model="symbol"
       :rules="dataRules"
       :items="items"
@@ -45,7 +45,7 @@
       label="symbol"
       
       required
-    ></v-autocomplete>
+    ></v-combobox>
      
     <v-btn
       :loading="btnLoad"
