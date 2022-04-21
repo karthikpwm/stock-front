@@ -1,6 +1,21 @@
 <template>
   <div>
+    <v-autocomplete
 
+
+         v-model="portfolio" 
+        :items="items"
+        :loading="loading"
+        label="portfolio"
+            dense
+            filled
+        required
+        this.fetchdata
+        @change="fetchData"
+>
+  
+        
+       </v-autocomplete>
     <CrudDataTable
       :headers="headers"
       :items="data"
@@ -180,7 +195,7 @@ import { URL } from '../helper/consts.js'
       // },
       async fetchData () {
        await axios
-      .get(`${URL}analytic`)     
+      .get(`${URL}analytic${this.portfolio}`)     
       .then( async (res) => {
         console.log(res.data)
         let resData = res.data.data;
@@ -313,6 +328,8 @@ import { URL } from '../helper/consts.js'
         loading: false,
         timer: '',
         data : [],
+        items : ['1','2','3'],
+        portfolio : '1',
         totalbts : 0,
         nifty : 0,
         perform : 0,

@@ -4,6 +4,16 @@
     v-model="valid"
     lazy-validation
   >
+  <v-autocomplete
+      v-model="portfolio"
+      :rules="dataRules"
+      :items="port"
+            dense
+            filled
+      label="portfolio"
+      
+      required
+    ></v-autocomplete>
     <v-text-field
       v-model="nameofthestock"
       :rules="dataRules"
@@ -70,10 +80,12 @@ import { URL } from '../helper/consts.js'
       ],
       items: ['INFOBEAN.NS','CONCOR.NS','DEEPAKNTR.NS','OAL.NS','TCS.NS','ICICIBANK.NS','ASALCBR.NS','TEJASNET.NS','DOLLAR.NS','BALAMINES.NS','IIFL.NS','JUBLINGREA.NS','INFY.NS','LALPATHLAB.NS','KOTAKBANK.NS','SUPRAJIT.NS','CAPLIPOINT.NS',
 'HDFCBANK.NS','POLYCAB.NS','HCLTECH.NS','HDFC.NS','SMSPHARMA.NS','ATUL.NS','MAHSCOOTER.NS','ZENSARTECH.NS','TCIDEVELOP.NS','HINDOILEXP.NS','RELIANCE.NS','INTELLECT.NS'],
+      port:['1','2','3'],
       email: '',
       nameofthestock : '',
       weightage : '',
-      symbol : ''
+      symbol : '',
+      portfolio : ''
     }),
 
     methods: {
@@ -85,6 +97,7 @@ import { URL } from '../helper/consts.js'
         if(this.valid == true) {
           this.btnLoad = true; 
           await axios.post(`${URL}analytic/insert`, {
+            portfolio :this.portfolio,
             name : this.nameofthestock,
             weightage : this.weightage,
             symbol : this.symbol
