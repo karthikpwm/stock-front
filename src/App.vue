@@ -3,7 +3,7 @@
       <v-navigation-drawer
             v-model="drawer"
              absolute
-        app
+             app
       >
         <v-list>
           <v-list-item class="px-2">
@@ -34,17 +34,23 @@
             </v-list-item-icon>
             <v-list-item-title>Analytics</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/live" >
+          <!-- <v-list-item link to="/live" >
             <v-list-item-icon>
               <v-icon>mdi-account-multiple</v-icon>
             </v-list-item-icon>
             <v-list-item-title>Live Data</v-list-item-title>
-          </v-list-item>
+          </v-list-item> -->
           <v-list-item link to="/analytics-form" >
             <v-list-item-icon>
               <v-icon>mdi-account-multiple</v-icon>
             </v-list-item-icon>
             <v-list-item-title>analytics-form</v-list-item-title>
+          </v-list-item>
+          <v-list-item link to="/import-data" >
+            <v-list-item-icon>
+              <v-icon>mdi-account-multiple</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Import Excel</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-navigation-drawer>
@@ -61,19 +67,19 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn icon>
+      <!-- <v-btn icon>
         <v-icon>mdi-heart</v-icon>
       </v-btn>
 
       <v-btn icon>
         <v-icon>mdi-magnify</v-icon>
-      </v-btn>
+      </v-btn> -->
 
       <v-menu
         left
         bottom
       >
-        <template v-slot:activator="{ on, attrs }">
+        <!-- <template v-slot:activator="{ on, attrs }">
           <v-btn
             icon
             v-bind="attrs"
@@ -81,9 +87,9 @@
           >
             <v-icon>mdi-dots-vertical</v-icon>
           </v-btn>
-        </template>
+        </template> -->
 
-        <v-list>
+        <!-- <v-list>
           <v-list-item
             v-for="n in 5"
             :key="n"
@@ -91,7 +97,7 @@
           >
             <v-list-item-title>Option {{ n }}</v-list-item-title>
           </v-list-item>
-        </v-list>
+        </v-list> -->
       </v-menu>
     </v-app-bar>
     <!-- -->
@@ -115,9 +121,11 @@
 
 <script>
 
+
   export default {
     name : 'App',
     components : {
+      
     },
     data () {
       return {

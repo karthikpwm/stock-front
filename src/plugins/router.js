@@ -22,6 +22,11 @@ const routes = [
     component : () => import( '../pages/live.vue')
   },
   {
+    path: '/import-data',
+    name: 'App',
+    component : () => import( '../pages/import-data.vue')
+  },
+  {
     path : '',
     redirect : '/analytics'
   },

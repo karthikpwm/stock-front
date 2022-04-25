@@ -1,21 +1,31 @@
 <template>
   <div>
-    <v-autocomplete
+    <v-select
 
-
+         
          v-model="portfolio" 
         :items="items"
         :loading="loading"
         label="portfolio"
             dense
             filled
+            
         required
         this.fetchdata
-        @change="fetchData"
+        @change="fetchData(); loading = true " 
+        
 >
   
         
-       </v-autocomplete>
+       </v-select>
+       <v-progress-linear
+        :active="loading"
+        :indeterminate="loading"
+        absolute
+        bottom
+        color="deep-purple accent-4"
+      ></v-progress-linear>
+      <v-spacer></v-spacer>
     <CrudDataTable
       :headers="headers"
       :items="data"
@@ -212,21 +222,21 @@ import { URL } from '../helper/consts.js'
           //console.log('my', element.symbol)
         })  
         let joinSymbol = symbol.join(',')
-       let analyticLiveData = {}
+         let analyticLiveData = {}
          
               //console.log(symbol, joinSymbol)
-     await  axios
-      // .get(`http://api.marketstack.com/v1/eod?access_key=cc070a926eb089902727bec546a59253&symbols=INFY,TCS,ACN,IBM,RELIANCE,BALAMINES,DOLLAR&date_from=2022-03-29&date_to=2022-03-29`)
-      .get(`https://yfapi.net/v6/finance/quote?region=IN&lang=en&symbols=${joinSymbol},%2C%5ECRSLDX`, {
+          await  axios
+          // .get(`http://api.marketstack.com/v1/eod?access_key=cc070a926eb089902727bec546a59253&symbols=INFY,TCS,ACN,IBM,RELIANCE,BALAMINES,DOLLAR&date_from=2022-03-29&date_to=2022-03-29`)
+        .get(`https://yfapi.net/v6/finance/quote?region=IN&lang=en&symbols=${joinSymbol},%2C%5ECRSLDX`, {
         headers: {
            'accept': 'application/json',
         'X-API-KEY': 'J6WzGEj49F59U8eeu3kSr210VOXDYVCiacvOx7fS'
         }
-      }).then( (res) => {
+         }).then( (res) => {
         //console.log('res',res.data.quoteResponse.result)
-      let resData = res.data.quoteResponse.result
+        let resData = res.data.quoteResponse.result
        //let nifty = res.data.quoteResponse.result.regularMarketChangePercent
-      resData.forEach(element => {
+        resData.forEach(element => {
          analyticLiveData[element.symbol] = (element.regularMarketChangePercent)
         //analyticLiveData[element.symbol] = (element.regularMarketDayHigh) * (75) ;
         //console.log(resData)
@@ -323,6 +333,13 @@ import { URL } from '../helper/consts.js'
         clearInterval(this.timer);
       } 
     },
+    watch: {
+      loading (val) {
+        if (!val) return
+
+        setTimeout(() => (this.loading = false), 3000)
+      },
+    },
     data () {
       return {
         loading: false,
@@ -374,7 +391,7 @@ import { URL } from '../helper/consts.js'
           { text: 'Yahoo Live Data', value: 'live' },
 
           { text: 'BTS', value: 'bts' },
-          { text: 'New Weight', value: 'newweight'},
+          { text: 'NextDay Weightage', value: 'newweight'},
           { text: 'Edit', value: 'Edit' },
           { text: 'Delete', value: 'Delete' },
           // { text: 'Iron (%)', value: 'iron' },

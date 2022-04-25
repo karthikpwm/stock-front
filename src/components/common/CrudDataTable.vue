@@ -1,4 +1,5 @@
 <template>
+
   <v-data-table
     v-model="data"
     :value="value"
@@ -11,10 +12,13 @@
     :search="search"
     :item-key="itemKey"
     :loading="loading"
+    
     return-object
     mobile-breakpoint="0"
   >
+  
     <template v-slot:top>
+      
       <v-toolbar
         flat
       >
@@ -150,15 +154,19 @@
     </template>
   </v-data-table>
 </template>
-
+<style scoped>
+.v-progress-circular {
+  margin: 1rem;
+}
+</style>
 <script>
   export default {
     props:{
-      loading : {
-        default : function() {
-          return false;
-        }
-      },
+      // loading : {
+      //   default : function() {
+      //     return false;
+      //   }
+      // },
       itemsPerPage : {
         type : Number,
         default : function() {
@@ -229,6 +237,7 @@
       dialog: false,
       dialogDelete: false,
       editedIndex: -1,
+      loading : false,
       rules: {
         required: value => {
           if(!value) {
@@ -254,6 +263,7 @@
       }
     },
     watch: {
+      
       data(value){
         this.$emit('selectedValue', value)
       },
