@@ -98,7 +98,7 @@ import { URL } from '../helper/consts.js'
         if(this.valid == true) {
           this.btnLoad = true; 
           await axios.post(`${URL}analytic/insert`, {
-            portfolio :this.portfolio,
+            portfolio_id :this.portfolio,
             name : this.nameofthestock,
             weightage : this.weightage,
             symbol : this.symbol
