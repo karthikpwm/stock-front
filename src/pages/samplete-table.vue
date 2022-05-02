@@ -345,7 +345,7 @@ import { URL } from '../helper/consts.js'
         loading: false,
         timer: '',
         data : [],
-        items : ['1','2','3'],
+        items : ['1','2','3','4','5','6','7','8','9',10],
         portfolio : '1',
         totalbts : 0,
         nifty : 0,
