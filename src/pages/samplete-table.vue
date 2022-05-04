@@ -207,7 +207,7 @@ import { URL } from '../helper/consts.js'
        await axios
       .get(`${URL}analytic/${this.portfolio}`)     
       .then( async (res) => {
-        //console.log(res.data)
+        console.log(res.data)
         let resData = res.data.data;
        // let total = res.data.total;
         
@@ -293,11 +293,13 @@ import { URL } from '../helper/consts.js'
           let cd = val.live.toFixed(2);
           //let cd = val.live
           val.live=cd;
-          let zx = (val.weightage/100) * val.bts;
+          //let zx = (val.weightage/100) * val.bts;
+          let zx = parseFloat(val.weightage) + parseFloat(val.bts);
+          val.zx = parseFloat(zx)
           val.newwe = parseFloat(val.weightage) + parseFloat(zx) ;
 
           val.newweight =  parseFloat(val.newwe)
-
+          //val.sumbps = cdd;
           //val.newwe = (val.per/100) * val.bts;
 
         //console.log(val.per, val.newwe)
@@ -325,15 +327,35 @@ import { URL } from '../helper/consts.js'
         //let sum = 0;
         resData.forEach(val => {
           totalbts += parseFloat(val.bts);
+          
          //sum += parseFloat(val.newweight)
         });
+        
         //console.log(sum)
         let sumweight = 0;
+        let sumbps = 0;
+        let sumofweight = 0;
         resData.forEach(val => {
         //sumweight = (val.newweight/sum) * 100;
-        sumweight = val.newweight;
-        val.newweight=sumweight.toFixed(2);
+        //sumweight = val.newweight;
+        //val.newweight=sumweight.toFixed(2);
+        sumbps += parseFloat(val.bts);
+        sumofweight +=parseFloat(val.weightage)
         })
+        let bb = parseFloat(sumbps)
+         let cc = parseFloat (sumofweight) 
+        resData.forEach(val => {
+          val.totalbts = bb
+          val.sumofweight = cc
+          val.totalweight = (val.totalbts) + (val.sumofweight)
+          sumweight = val.zx / val.totalweight * 100;
+          val.newweight=sumweight.toFixed(2);
+        })
+          //const cdd = sumbps.toFixed(2);
+      //  resData = resData.map(function(val){
+      //      val.sumbps = cdd;
+           
+      //  })
         
         let cd = totalbts.toFixed(2);
           totalbts = cd;

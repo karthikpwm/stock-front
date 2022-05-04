@@ -18,6 +18,12 @@
     'items-per-page-options':[100],
     'disable-items-per-page': true,
     'disable-Pagination': true,
+    firstIcon: '',
+        lastIcon: '',
+        prevIcon: '',
+        nextIcon: '',
+    itemsPerPageText: '',
+        pageText: ''
      
   }"
   

@@ -36,7 +36,7 @@
       :defaultItem="defaultItem"
       @deleteItem="deleteItem"
       @UpdateItem="UpdateItem"
-      disable-Pagination: true
+      
       :footer-props="{
     'items-per-page-options':[100],
     'disable-items-per-page': true,
@@ -190,7 +190,7 @@ import { URL } from '../helper/consts.js'
            await vm.fetchData()
          })
           this.loading=false
-      },
+       },
           async  UpdateItem(data){     
             this.loading = true
         //console.log(data.analytic_id) 
@@ -224,9 +224,9 @@ import { URL } from '../helper/consts.js'
       // }
       // },
       async fetchData () {
-       await axios
-      .get(`${URL}analytic/${this.portfolio}`)     
-      .then( async (res) => {
+        await axios
+       .get(`${URL}analytic/${this.portfolio}`)     
+       .then( async (res) => {
         console.log(res.data)
         let resData = res.data.data;
        // let total = res.data.total;
@@ -253,7 +253,7 @@ import { URL } from '../helper/consts.js'
         headers: {
            'accept': 'application/json',
         'X-API-KEY': 'J6WzGEj49F59U8eeu3kSr210VOXDYVCiacvOx7fS'
-        }
+                }
         }).then( (res) => {
         //console.log('res',res.data.quoteResponse.result)
         let resData = res.data.quoteResponse.result
@@ -266,11 +266,11 @@ import { URL } from '../helper/consts.js'
           let bc = this.nifty.toFixed(2);
           
           this.nifty = bc;
-        }
+              }
         
-        })
+             })
         
-  });
+        });
 
         await  axios
          .get(`${URL}analytic`)
@@ -280,11 +280,11 @@ import { URL } from '../helper/consts.js'
         let resData = res.data.data;
        //let nifty = res.data.quoteResponse.result.regularMarketChangePercent
         resData.forEach(element => {
-          console.log('pppp',element.close,element.prevclose,element.symbol)
+          //console.log('pppp',element.close,element.prevclose,element.symbol)
           let zx = element.close - element.prevclose ;
           let qw = zx / element.prevclose; 
           let cv = qw * 100 ;
-          console.log(cv)
+          //console.log(cv)
          analyticLiveData[element.symbol] = (cv)
         //analyticLiveData[element.symbol] = (element.regularMarketDayHigh) * (75) ;
         //console.log(resData)
@@ -298,11 +298,11 @@ import { URL } from '../helper/consts.js'
           
         //   this.nifty = bc;
         // }
-      });
+           });
 
-//console.log('ok',analyticLiveData)
+          //console.log('ok',analyticLiveData)
 
-});
+        });
    
         resData = resData.map(function(val) {
          // val.per =(val.weightage / total) * 100;
@@ -322,10 +322,14 @@ import { URL } from '../helper/consts.js'
           //console.log(val.live)
            let cd = Number(val.live).toFixed(2);
            val.live=cd;
+           let zx = parseFloat(val.weightage) + parseFloat(val.bts);
+          val.zx = parseFloat(zx)
+          val.newwe = parseFloat(val.weightage) + parseFloat(zx) ;
 
-           let zx = (val.weightage/100) * val.bts;
+          val.newweight =  parseFloat(val.newwe)
+           //let zx = (val.weightage/100) * val.bts;
           // console.log('ttt',zx,val.weightage)
-           val.newwe = parseFloat(val.weightage) + parseFloat(zx) ;
+          // val.newwe = parseFloat(val.weightage) + parseFloat(zx) ;
            //console.log('uuu',val.newwe)
           //val.newwe = (val.per/100) * val.live;
           
@@ -333,13 +337,13 @@ import { URL } from '../helper/consts.js'
         //console.log(val.per, val.newwe)
         // val.newweight = parseFloat(val.per) + parseFloat(val.newwe)
           val.newweight =  parseFloat(val.newwe)
-//          calculateSum() {
-//           var sum = 0;
-//     for(let value in val.newweight){
-//         sum += value[val.newweight]
-//     }
-//      return sum;
-//      console.log(sum);
+          //          calculateSum() {
+          //           var sum = 0;
+          //     for(let value in val.newweight){
+          //         sum += value[val.newweight]
+         //     }
+            //      return sum;
+           //      console.log(sum);
     
           // console.log(val.newwe);
           
@@ -359,15 +363,28 @@ import { URL } from '../helper/consts.js'
         });
         //console.log(sum)
         let sumweight = 0;
+        let sumbps = 0;
+        let sumofweight = 0;
         resData.forEach(val => {
         //sumweight = (val.newweight/sum) * 100;
-        sumweight = val.newweight;
-        val.newweight=sumweight.toFixed(2);
+        //sumweight = val.newweight;
+        //val.newweight=sumweight.toFixed(2);
+        sumbps += parseFloat(val.bts);
+        sumofweight +=parseFloat(val.weightage)
+        })
+        let bb = parseFloat(sumbps)
+         let cc = parseFloat (sumofweight) 
+        resData.forEach(val => {
+          val.totalbts = bb
+          val.sumofweight = cc
+          val.totalweight = (val.totalbts) + (val.sumofweight)
+          sumweight = val.zx / val.totalweight * 100;
+          val.newweight=sumweight.toFixed(2);
         })
         
         let cd = totalbts.toFixed(6);
           totalbts = cd;
-      // console.log(resData)
+       // console.log(resData)
         this.data = resData;
         this.totalbts = totalbts;
 
