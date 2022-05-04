@@ -36,7 +36,7 @@
       :defaultItem="defaultItem"
       @deleteItem="deleteItem"
       @UpdateItem="UpdateItem"
-      disable-Pagination: true
+      
       :footer-props="{
     'items-per-page-options':[100],
     'disable-items-per-page': true,
