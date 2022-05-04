@@ -27,6 +27,16 @@ const routes = [
     component : () => import( '../pages/import-data.vue')
   },
   {
+    path: '/import-nse',
+    name: 'App',
+    component : () => import( '../pages/import-nse.vue')
+  },
+  {
+    path: '/nse-track',
+    name: 'App',
+    component : () => import( '../pages/nse-track.vue')
+  },
+  {
     path : '',
     redirect : '/analytics'
   },

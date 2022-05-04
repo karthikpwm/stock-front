@@ -5,14 +5,22 @@
     :value="value"
     :headers="headers"
     :items="items"
-    :items-per-page="itemsPerPage"
+    :items-per-page="100"
     :show-select="showSelect"
     sort-by="calories"
     class="elevation-1"
     :search="search"
     :item-key="itemKey"
     :loading="loading"
+    prev-icon:false
     
+    :footer-props="{
+    'items-per-page-options':[100],
+    'disable-items-per-page': true,
+    'disable-Pagination': true,
+     
+  }"
+  
     return-object
     mobile-breakpoint="0"
   >
@@ -170,7 +178,7 @@
       itemsPerPage : {
         type : Number,
         default : function() {
-          return 5
+          return 100
         }
       },
       setEditedItem : {

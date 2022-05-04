@@ -63,14 +63,27 @@ import {URL} from './../helper/consts'
           const ws = wb.Sheets[wsname];
           /* Convert array of arrays */
           const data = XLSX.utils.sheet_to_json(ws, {  skipHeader: true });
+          
+
           this.excelData = data;
         //  data.map((item) => {
         //   this.itemsList.push(item.XLSX);
         // });
-          console.log('pppppp',data)
+        //let rsedata = data
+        //rsedata.forEach(element => {
+          // let ab = element.PREVCLOSE ;
+          // let bc = element.CLOSE;
+
+          // let cd = bc.toFixed(2)- ab.toFixed(2);
+          // let da = cd / element.PREVCLOSE * 100;
+          // console.log(da.toFixed(2))
+        //});
+          //console.log('pppppp',data.PREVCLOSE)
 
           //this.data = data;
-}
+           
+
+             }
       reader.readAsBinaryString(this.file);
       }
       //console.log('tooo')
@@ -139,7 +152,9 @@ import {URL} from './../helper/consts'
       
 //       })  
       
-      axios.post(`${URL}analytic/upload`, { excelData : this.excelData })
+      axios.post(`${URL}analytic/uploadnse`, 
+      { excelData : this.excelData 
+          })
         .then(res => {
           console.log(res);
         })
@@ -154,7 +169,7 @@ import {URL} from './../helper/consts'
         // itemsList : [],
         vn :0,
         loader: null,
-        
+        da : '',
         loading3: false,
         
       }

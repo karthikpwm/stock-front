@@ -52,6 +52,18 @@
             </v-list-item-icon>
             <v-list-item-title>Import Excel</v-list-item-title>
           </v-list-item>
+          <v-list-item link to="/import-nse" >
+            <v-list-item-icon>
+              <v-icon>mdi-account-multiple</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Import NSE file</v-list-item-title>
+          </v-list-item>
+          <v-list-item link to="/nse-track" >
+            <v-list-item-icon>
+              <v-icon>mdi-folder</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Track with NSE</v-list-item-title>
+          </v-list-item>
         </v-list>
       </v-navigation-drawer>
     <v-app-bar
