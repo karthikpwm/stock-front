@@ -4,7 +4,7 @@
     v-model="valid"
     lazy-validation
   >
-  <v-autocomplete
+  <v-select
       v-model="portfolio"
       :rules="dataRules"
       :items="port"
@@ -13,7 +13,7 @@
       label="portfolio"
       
       required
-    ></v-autocomplete>
+    ></v-select>
     <v-text-field
       v-model="nameofthestock"
       :rules="dataRules"
@@ -38,14 +38,17 @@
 
     <v-combobox
       v-model="symbol"
-      :rules="dataRules"
+      
       :items="items"
+      item-text="text"
+      :return-object="true"
             dense
             filled
       label="symbol"
-      
+      @input.native="symbol=$event.srcElement.value"
       required
-    ></v-combobox>
+    >
+    </v-combobox>
      
     <v-btn
       :loading="btnLoad"
