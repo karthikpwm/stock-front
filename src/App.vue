@@ -78,12 +78,16 @@
       <v-toolbar-title>Financial Market Analytics</v-toolbar-title>
 
       <v-spacer></v-spacer>
-
-      <!-- <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
-
+       
       <v-btn icon>
+        <v-list-item href="https://damp-sierra-56514.herokuapp.com/" target="_blank">Pie Chart</v-list-item>
+        <v-icon>mdi-heart</v-icon>
+        
+      </v-btn>
+     
+     
+    
+      <!-- <v-btn icon>
         <v-icon>mdi-magnify</v-icon>
       </v-btn> -->
 
