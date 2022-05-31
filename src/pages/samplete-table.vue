@@ -76,9 +76,20 @@
             TOTAL BTS  : <strong class="green--text text--lighten-2" >
               {{totalbts}} </strong>  
               <br/>
-              NIFTY 500 : <strong class="green--text text--lighten-2 font-size: 1.9em" >
+              <!-- NIFTY 500 : <strong class="green--text text--lighten-2 font-size: 1.9em" >
                {{nifty}}</strong> 
-               <br/>  <div>
+               <br/>  
+                 NIFTY 50 : <strong class="green--text text--lighten-2 font-size: 1.9em" >
+               {{nifty50}}</strong> 
+               <br/>  
+               NIFTY Midcap 100 : <strong class="green--text text--lighten-2 font-size: 1.9em" >
+               {{niftysmlcap}}</strong> 
+               <br/>
+               NIFTY smalcap 100 : <strong class="green--text text--lighten-2 font-size: 1.9em" >
+               {{niftymidcap}}</strong> 
+               <br/> -->
+               BENCHMARK : <strong class="green--text text--lighten-2 font-size: 1.9em" >
+               {{benchmark}}</strong> <div>
             PERFORM : <strong class="blue--text text--darken-3" >
                {{perform}}</strong> </div>
           </span>
@@ -207,7 +218,7 @@ import { URL } from '../helper/consts.js'
        await axios
       .get(`${URL}analytic/${this.portfolio}`)     
       .then( async (res) => {
-        console.log(res.data)
+        //console.log(res.data)
         let resData = res.data.data;
        // let total = res.data.total;
         
@@ -236,7 +247,7 @@ import { URL } from '../helper/consts.js'
               //console.log('yyyyy',joinSymbol)
           await  axios
           // .get(`http://api.marketstack.com/v1/eod?access_key=cc070a926eb089902727bec546a59253&symbols=INFY,TCS,ACN,IBM,RELIANCE,BALAMINES,DOLLAR&date_from=2022-03-29&date_to=2022-03-29`)
-        .get(`https://yfapi.net/v6/finance/quote?region=IN&lang=en&symbols=${joinSymbol},%2C%5ECRSLDX`, {
+        .get(`https://yfapi.net/v6/finance/quote?region=IN&lang=en&symbols=${joinSymbol},%2C%5ECRSLDX,%5ENSEI,%2CNIFTY_MIDCAP_100.NS,%2C%5ECNXSC`, {
         headers: {
            'accept': 'application/json',
         'X-API-KEY': 'J6WzGEj49F59U8eeu3kSr210VOXDYVCiacvOx7fS'
@@ -264,7 +275,24 @@ import { URL } from '../helper/consts.js'
           
           this.nifty = bc;
         }
-
+        if(element.symbol == '^NSEI') {
+          this.nifty50 = element.regularMarketChangePercent
+          let bc = this.nifty50.toFixed(2);
+          
+          this.nifty50 = bc;
+        }
+        if(element.symbol == 'NIFTY_MIDCAP_100.NS') {
+          this.niftymidcap = element.regularMarketChangePercent
+          let bc = this.niftymidcap.toFixed(2);
+          
+          this.niftymidcap = bc;
+        }
+        if(element.symbol == '^CNXSC') {
+          this.niftysmlcap = element.regularMarketChangePercent
+          let bc = this.niftysmlcap.toFixed(2);
+          
+          this.niftysmlcap = bc;
+        }
 
         
       });
@@ -324,9 +352,11 @@ import { URL } from '../helper/consts.js'
         
 
         let totalbts = 0;
+        
         //let sum = 0;
         resData.forEach(val => {
           totalbts += parseFloat(val.bts);
+         
           
          //sum += parseFloat(val.newweight)
         });
@@ -335,6 +365,7 @@ import { URL } from '../helper/consts.js'
         let sumweight = 0;
         let sumbps = 0;
         let sumofweight = 0;
+        // let benchmark = 0;
         resData.forEach(val => {
         //sumweight = (val.newweight/sum) * 100;
         //sumweight = val.newweight;
@@ -350,6 +381,11 @@ import { URL } from '../helper/consts.js'
           val.totalweight = (val.totalbts) + (val.sumofweight)
           sumweight = val.zx / val.totalweight * 100;
           val.newweight=sumweight.toFixed(2);
+          val.nifty50 = this.nifty50 * parseInt(34);
+          val.niftymidcap = this.niftymidcap * parseInt(33);
+          val.niftysmlcap = this.niftysmlcap * parseInt(33);
+          val.benchmark = (val.nifty50 + val.niftymidcap + val.niftysmlcap) / 100;
+          this.benchmark = val.benchmark.toFixed(2)
         })
           //const cdd = sumbps.toFixed(2);
       //  resData = resData.map(function(val){
@@ -359,16 +395,18 @@ import { URL } from '../helper/consts.js'
         
         let cd = totalbts.toFixed(2);
           totalbts = cd;
-      // console.log(resData)
+          
+       //console.log(resData)
         this.data = resData;
         this.totalbts = totalbts;
-
+        //this.benchmark = benchmark;
         let perform = 0;
-        perform = totalbts - this.nifty;
+        //perform = totalbts - this.nifty;
+        perform = totalbts - this.benchmark;
         this.perform = perform.toFixed(2);
         
         // let fetch = this.fetchData;
-        // console.log(fetch)
+         //console.log(this.benchmark)
         // return fetch;
       
       })
@@ -393,6 +431,10 @@ import { URL } from '../helper/consts.js'
         portfolio : '1',
         totalbts : 0,
         nifty : 0,
+        nifty50 : 0,
+        niftysmlcap: 0,
+        niftymidcap : 0,
+        benchmark : 0,
         perform : 0,
         //no : 0,
         // localTime: " ",
