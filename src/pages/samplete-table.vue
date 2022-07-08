@@ -73,7 +73,7 @@
           
          >
          
-            TOTAL BTS  : <strong class="green--text text--lighten-2" >
+            TOTAL BPS  : <strong class="green--text text--lighten-2" >
               {{totalbts}} </strong>  
               <br/>
               <!-- NIFTY 500 : <strong class="green--text text--lighten-2 font-size: 1.9em" >
@@ -92,6 +92,28 @@
                {{benchmark}}</strong> <div>
             PERFORM : <strong class="blue--text text--darken-3" >
                {{perform}}</strong> </div>
+          </span>
+          <span class="ma-2">
+            PWM SmallCap  : <strong class="green--text text--lighten-2" >
+              {{marketcap}} </strong>  
+              <br/>
+              PWM MidCap  : <strong class="green--text text--lighten-2" >
+              {{midmarketcap}} </strong>  
+              <br/>
+              PWM LargeCap  : <strong class="green--text text--lighten-2" >
+              {{largemarketcap}} </strong>  
+              <br/>
+          </span>
+          <span class="ma-2">
+          Nifty SmallCap  : <strong class="green--text text--lighten-2" >
+              {{niftysmlcap}} </strong>  
+              <br/>
+              Nifty MidCap  : <strong class="green--text text--lighten-2" >
+              {{niftymidcap}} </strong>  
+              <br/>
+              Nifty 50  : <strong class="green--text text--lighten-2" >
+              {{nifty50}} </strong>  
+              <br/>
           </span>
            <!-- <div id="app">
            <h1>{{localTime}}</h1>
@@ -243,6 +265,7 @@ import { URL } from '../helper/consts.js'
         let joinSymbol = symbol.join(',')
         
          let analyticLiveData = {}
+         let analticmarketcap = {}
          
               //console.log('yyyyy',joinSymbol)
           await  axios
@@ -258,10 +281,11 @@ import { URL } from '../helper/consts.js'
        //let nifty = res.data.quoteResponse.result.regularMarketChangePercent
         resData.forEach(element => {
          const ab= (element.symbol).slice(0, -3)
-
-          //console.log(ab)
+   
+          
          analyticLiveData[ab] = (element.regularMarketChangePercent)
-         
+         analticmarketcap[ab] =(element.marketCap)
+         //console.log("com  :"+ ab +"markcap  :"+analticmarketcap[ab])
         
 
         //analyticLiveData[element.symbol] = (element.regularMarketDayHigh) * (75) ;
@@ -306,6 +330,20 @@ import { URL } from '../helper/consts.js'
           
           val.per = val.weightage;
           val.live =  analyticLiveData[val.symbol] || 0
+          val.allmarketcap = analticmarketcap[val.symbol] || 0
+          if(val.allmarketcap >= 0 && val.allmarketcap <= 50000000000)
+          {
+            val.marketstatus = 'small'
+          }
+          else if(val.allmarketcap >  50000000000 && val.allmarketcap <= 500000000000)
+          {
+            val.marketstatus = 'mid'
+          }
+          else if(val.allmarketcap > 50000000000) 
+          {
+            val.marketstatus = 'large'
+          }
+          
           //console.log('marketchang',analyticLiveData[val.symbol])
           val.bts = (val.live/100) * val.per; 
           // var xy = parseInt(val.per);
@@ -365,17 +403,41 @@ import { URL } from '../helper/consts.js'
         let sumweight = 0;
         let sumbps = 0;
         let sumofweight = 0;
+        let sumofsmall = 0;
+        let sumofmid = 0;
+        let sumoflarge = 0;
         // let benchmark = 0;
         resData.forEach(val => {
         //sumweight = (val.newweight/sum) * 100;
         //sumweight = val.newweight;
         //val.newweight=sumweight.toFixed(2);
+        if(val.marketstatus == 'small')
+        {
+          
+          sumofsmall += parseFloat(val.bts)
+        }
+        if(val.marketstatus == 'mid')
+        {
+          
+          sumofmid += parseFloat(val.bts)
+        }
+        if(val.marketstatus == 'large')
+        {
+          
+          sumoflarge += parseFloat(val.bts)
+        }
         sumbps += parseFloat(val.bts);
         sumofweight +=parseFloat(val.weightage)
         })
+        let ss = parseFloat(sumofsmall)
+        let sm = parseFloat(sumofmid)
+        let sl = parseFloat(sumoflarge)
         let bb = parseFloat(sumbps)
          let cc = parseFloat (sumofweight) 
         resData.forEach(val => {
+          val.smallmarketcapbps = ss
+          val.midmarketcapbps= sm
+          val.largemarketcapbps = sl
           val.totalbts = bb
           val.sumofweight = cc
           val.totalweight = (val.totalbts) + (val.sumofweight)
@@ -386,6 +448,9 @@ import { URL } from '../helper/consts.js'
           val.niftysmlcap = this.niftysmlcap * parseInt(33);
           val.benchmark = (val.nifty50 + val.niftymidcap + val.niftysmlcap) / 100;
           this.benchmark = val.benchmark.toFixed(2)
+          this.marketcap = val.smallmarketcapbps.toFixed(2)
+          this.midmarketcap = val.midmarketcapbps.toFixed(2)
+          this.largemarketcap = val.largemarketcapbps.toFixed(2)
         })
           //const cdd = sumbps.toFixed(2);
       //  resData = resData.map(function(val){
@@ -396,7 +461,7 @@ import { URL } from '../helper/consts.js'
         let cd = totalbts.toFixed(2);
           totalbts = cd;
           
-       //console.log(resData)
+       //console.table(resData)
         this.data = resData;
         this.totalbts = totalbts;
         //this.benchmark = benchmark;
@@ -430,6 +495,9 @@ import { URL } from '../helper/consts.js'
         items : ['1','2','3','4','5','6','7','8','9','10'],
         portfolio : '1',
         totalbts : 0,
+        marketcap: 0,
+        midmarketcap: 0,
+        largemarketcap: 0,
         nifty : 0,
         nifty50 : 0,
         niftysmlcap: 0,
@@ -476,7 +544,7 @@ import { URL } from '../helper/consts.js'
 
           { text: 'Yahoo Live Data', value: 'live' },
 
-          { text: 'BTS', value: 'bts' },
+          { text: 'BPS', value: 'bts' },
           { text: 'NextDay Weightage', value: 'newweight'},
           { text: 'Edit', value: 'Edit' },
           { text: 'Delete', value: 'Delete' },
