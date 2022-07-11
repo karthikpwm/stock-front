@@ -106,13 +106,13 @@
           </span>
           <span class="ma-2">
           Nifty SmallCap  : <strong class="green--text text--lighten-2" >
-              {{niftysmlcap}} </strong>  
+              {{newniftysmlcap}} </strong>  
               <br/>
               Nifty MidCap  : <strong class="green--text text--lighten-2" >
-              {{niftymidcap}} </strong>  
+              {{newniftymidcap}} </strong>  
               <br/>
               Nifty 50  : <strong class="green--text text--lighten-2" >
-              {{nifty50}} </strong>  
+              {{newnifty50}} </strong>  
               <br/>
           </span>
            <!-- <div id="app">
@@ -334,17 +334,17 @@ import { URL } from '../helper/consts.js'
           if(val.allmarketcap >= 0 && val.allmarketcap <= 50000000000)
           {
             val.marketstatus = 'small'
-            console.log(val.symbol,val.allmarketcap,'small')
+            //console.log(val.symbol,val.allmarketcap,'small')
           }
           else if(val.allmarketcap >  50000000000 && val.allmarketcap <= 500000000000)
           {
             val.marketstatus = 'mid'
-            console.log(val.symbol,val.allmarketcap,'mid')
+            //console.log(val.symbol,val.allmarketcap,'mid')
           }
           else if(val.allmarketcap > 50000000000) 
           {
             val.marketstatus = 'large'
-            console.log(val.symbol,val.allmarketcap,'large')
+            //console.log(val.symbol,val.allmarketcap,'large')
           }
           
           //console.log('marketchang',analyticLiveData[val.symbol])
@@ -449,11 +449,18 @@ import { URL } from '../helper/consts.js'
           val.nifty50 = this.nifty50 * parseInt(34);
           val.niftymidcap = this.niftymidcap * parseInt(33);
           val.niftysmlcap = this.niftysmlcap * parseInt(33);
+          val.nifty50new = this.nifty50 * 0.34
+          val.niftymidcapnew = this.niftymidcap * 0.33
+          val.niftysmlcapnew = this.niftysmlcap * 0.33
           val.benchmark = (val.nifty50 + val.niftymidcap + val.niftysmlcap) / 100;
           this.benchmark = val.benchmark.toFixed(2)
           this.marketcap = val.smallmarketcapbps.toFixed(2)
           this.midmarketcap = val.midmarketcapbps.toFixed(2)
           this.largemarketcap = val.largemarketcapbps.toFixed(2)
+          this.newnifty50 = val.nifty50new.toFixed(2)
+          this.newniftymidcap = val.niftymidcapnew.toFixed(2)
+          this.newniftysmlcap = val.niftysmlcapnew.toFixed(2)
+          
         })
           //const cdd = sumbps.toFixed(2);
       //  resData = resData.map(function(val){
@@ -501,6 +508,9 @@ import { URL } from '../helper/consts.js'
         marketcap: 0,
         midmarketcap: 0,
         largemarketcap: 0,
+        newnifty50: 0,
+         newniftymidcap: 0 ,
+         newniftysmlcap: 0,
         nifty : 0,
         nifty50 : 0,
         niftysmlcap: 0,
