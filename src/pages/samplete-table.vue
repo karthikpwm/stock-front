@@ -94,13 +94,13 @@
                {{perform}}</strong> </div>
           </span>
           <span class="ma-2">
-            PWM SmallCap  : <strong class="green--text text--lighten-2" >
+            P SmallCap  : <strong class="green--text text--lighten-2" >
               {{marketcap}} </strong>  
               <br/>
-              PWM MidCap  : <strong class="green--text text--lighten-2" >
+              P MidCap  : <strong class="green--text text--lighten-2" >
               {{midmarketcap}} </strong>  
               <br/>
-              PWM LargeCap  : <strong class="green--text text--lighten-2" >
+              P LargeCap  : <strong class="green--text text--lighten-2" >
               {{largemarketcap}} </strong>  
               <br/>
           </span>
