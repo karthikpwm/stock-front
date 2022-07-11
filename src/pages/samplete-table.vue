@@ -334,17 +334,17 @@ import { URL } from '../helper/consts.js'
           if(val.allmarketcap >= 0 && val.allmarketcap <= 50000000000)
           {
             val.marketstatus = 'small'
-            console.log(analticmarketcap[val.symbol],val.allmarketcap,'small')
+            console.log(val.symbol,val.allmarketcap,'small')
           }
           else if(val.allmarketcap >  50000000000 && val.allmarketcap <= 500000000000)
           {
             val.marketstatus = 'mid'
-            console.log(analticmarketcap[val.symbol],val.allmarketcap,'mid')
+            console.log(val.symbol,val.allmarketcap,'mid')
           }
           else if(val.allmarketcap > 50000000000) 
           {
             val.marketstatus = 'large'
-            console.log(analticmarketcap[val.symbol],val.allmarketcap,'large')
+            console.log(val.symbol,val.allmarketcap,'large')
           }
           
           //console.log('marketchang',analyticLiveData[val.symbol])
