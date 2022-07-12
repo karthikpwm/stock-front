@@ -67,12 +67,10 @@
             </v-col>
           </v-row>
         </template>
-       <template v-slot:[`footer.prepend`]>
+       <template >
+         <div>
         <span
-          class="ma-2"
-          
-         >
-         
+          class="ma-2">
             TOTAL BPS  : <strong class="green--text text--lighten-2" >
               {{totalbts}} </strong>  
               <br/>
@@ -115,12 +113,100 @@
               {{newnifty50}} </strong>  
               <br/>
           </span>
+         </div>
            <!-- <div id="app">
            <h1>{{localTime}}</h1>
             </div> -->
             
       </template>
-   
+   <template v-slot:[`footer`]>
+  <v-container class=" lighten-5">
+    <v-row no-gutters>
+      <v-col>
+        <v-card
+          class="pa-2"
+          outlined
+          tile
+        >
+          
+          
+         <div class="ma-2">
+            TOTAL BPS  : <strong class="green--text text--lighten-2" >
+              {{totalbts}} </strong>  
+              <br/>
+             </div>
+             <div class="ma-2">
+               BENCHMARK : <strong class="green--text text--lighten-2 font-size: 1.9em" >
+               {{benchmark}}</strong> </div>
+               <div class="ma-2">
+            PERFORM : <strong class="blue--text text--darken-3" >
+               {{perform}}</strong> </div>
+         
+          
+        </v-card>
+      </v-col>
+      <v-col md="auto">
+        <v-card
+          class="pa-2"
+          outlined
+          tile
+        >
+          <div class="ma-2">
+            P SmallCap  : <strong class="green--text text--lighten-2" >
+              {{marketcap}} </strong>   
+              <br/></div>
+              <div class="ma-2">
+              P MidCap  : <strong class="green--text text--lighten-2" >
+              {{midmarketcap}} </strong>  
+              <br/>
+              </div>
+              <div class="ma-2">
+              P LargeCap  : <strong class="green--text text--lighten-2" >
+              {{largemarketcap}} </strong>  
+              <br/>
+              </div>
+        </v-card>
+      </v-col>
+      <v-col lg="2">
+        <v-card
+          class="pa-2"
+          outlined
+          tile
+        >
+         <div class="ma-2">
+          Nifty SmallCap  : <strong class="green--text text--lighten-2" >
+              {{newniftysmlcap}} </strong>  
+              <br/></div>
+            <div class="ma-2">
+              Nifty MidCap  : <strong class="green--text text--lighten-2" >
+              {{newniftymidcap}} </strong>  
+              <br/></div>
+             <div class="ma-2">
+              Nifty 50  : <strong class="green--text text--lighten-2" >
+              {{newnifty50}} </strong>  
+              <br/> </div>
+          
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <!-- <v-row no-gutters>
+      <v-col
+        v-for="n in 2"
+        :key="n"
+        :cols="n === 1 ? 8 : 4"
+      >
+        <v-card
+          class="pa-2"
+          tile
+          outlined
+        >
+          col-{{ n === 1 ? 8 : 4 }}
+        </v-card>
+      </v-col>
+    </v-row> -->
+  </v-container>
+</template>
     </CrudDataTable>
    
 <template >
@@ -146,7 +232,9 @@
 
 <style scoped>
        .ma-2 {
-        font-size: 1.2rem;
+        /* font-size: 1.2rem; */
+        margin: 0 auto; 
+        text-align: left;
 }
 </style>
 <script>
