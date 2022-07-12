@@ -167,7 +167,7 @@
               </div>
         </v-card>
       </v-col>
-      <v-col lg="2">
+      <v-col md="auto">
         <v-card
           class="pa-2"
           outlined
@@ -182,7 +182,7 @@
               {{newniftymidcap}} </strong>  
               <br/></div>
              <div class="ma-2">
-              Nifty 50  : <strong class="green--text text--lighten-2" >
+              Nifty 50 :  <strong class="green--text text--lighten-2" >
               {{newnifty50}} </strong>  
               <br/> </div>
           
@@ -232,9 +232,12 @@
 
 <style scoped>
        .ma-2 {
-        /* font-size: 1.2rem; */
+        font-size: .90rem;
         margin: 0 auto; 
         text-align: left;
+}
+.container {
+    max-width: inherit;
 }
 </style>
 <script>
