@@ -364,7 +364,7 @@ import { URL } from '../helper/consts.js'
         .get(`https://yfapi.net/v6/finance/quote?region=IN&lang=en&symbols=${joinSymbol},%2C%5ECRSLDX,%5ENSEI,%2CNIFTY_MIDCAP_100.NS,%2C%5ECNXSC`, {
         headers: {
            'accept': 'application/json',
-        'X-API-KEY': 'J6WzGEj49F59U8eeu3kSr210VOXDYVCiacvOx7fS'
+        'X-API-KEY': 'EN02BtXjba8eATMh7xtLQ11IMjjQ14xB5FkGSmpT'
         }
          }).then( (res) => {
         //console.log('res',res.data.quoteResponse.result)
