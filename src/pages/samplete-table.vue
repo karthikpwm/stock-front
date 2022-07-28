@@ -255,7 +255,7 @@ import { URL } from '../helper/consts.js'
       this.loading = true
     await this.fetchData();
     this.loading = false
-    //this.timer = setInterval(this.fetchData, 300000);
+    this.timer = setInterval(this.fetchData, 600000);
     // this.showLocaleTime();
     
 
