@@ -5,7 +5,7 @@
     :value="value"
     :headers="headers"
     :items="items"
-    :items-per-page="100"
+    :items-per-page="250"
     :show-select="showSelect"
     sort-by="calories"
     class="elevation-1"
@@ -15,7 +15,7 @@
     prev-icon:false
     
     :footer-props="{
-    'items-per-page-options':[100],
+    'items-per-page-options':[250],
     'disable-items-per-page': true,
     'disable-Pagination': true,
     firstIcon: '',

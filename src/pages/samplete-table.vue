@@ -255,7 +255,7 @@ import { URL } from '../helper/consts.js'
       this.loading = true
     await this.fetchData();
     this.loading = false
-    this.timer = setInterval(this.fetchData, 600000);
+    this.timer = setInterval(this.fetchData, 3600000);
     // this.showLocaleTime();
     
 
@@ -357,11 +357,26 @@ import { URL } from '../helper/consts.js'
         
          let analyticLiveData = {}
          let analticmarketcap = {}
+         let all = ',^CRSLDX,^NSEI,NIFTY_MIDCAP_100.NS,^CNXSC' 
+         if(joinSymbol) {
+          joinSymbol= joinSymbol+','+all
+           //console.log('ok',joinSymbol+','+all)
+         } else {
+           //console.log('not ok')
+           joinSymbol = all
+         }
          
               //console.log('yyyyy',joinSymbol)
           await  axios
           // .get(`http://api.marketstack.com/v1/eod?access_key=cc070a926eb089902727bec546a59253&symbols=INFY,TCS,ACN,IBM,RELIANCE,BALAMINES,DOLLAR&date_from=2022-03-29&date_to=2022-03-29`)
-        .get(`https://yfapi.net/v6/finance/quote?region=IN&lang=en&symbols=${joinSymbol},%2C%5ECRSLDX,%5ENSEI,%2CNIFTY_MIDCAP_100.NS,%2C%5ECNXSC`, {
+        .get(`https://yfapi.net/v6/finance/quote`,
+         {
+           params: {
+
+             region: 'IN',
+             lang : 'EN',
+             symbols : joinSymbol
+           },
         headers: {
            'accept': 'application/json',
         'X-API-KEY': 'GrZHDJq86E3oY2mc35Vab53YzQ3iF6PV1YpTC1of'

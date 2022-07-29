@@ -67,7 +67,7 @@ import {URL} from './../helper/consts'
         //  data.map((item) => {
         //   this.itemsList.push(item.XLSX);
         // });
-          //console.log('pppppp',data)
+          console.log('pppppp',data)
 
           //this.data = data;
 }

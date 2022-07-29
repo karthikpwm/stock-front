@@ -29,7 +29,7 @@
     <CrudDataTable
       :headers="headers"
       :items="data"
-      :itemsPerPage="100" 
+      :itemsPerPage="250" 
       :loading="loading"
       :addBtn="false"
       :setEditedItem.sync="setEditedItem"
@@ -38,7 +38,7 @@
       @UpdateItem="UpdateItem"
       
       :footer-props="{
-    'items-per-page-options':[100],
+    'items-per-page-options':[250],
     'disable-items-per-page': true,
     
   }"
