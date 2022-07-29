@@ -5,6 +5,8 @@
          
          v-model="portfolio" 
         :items="items"
+        item-text="name"
+        item-value="value"
         :loading="loading"
         label="portfolio"
             dense
@@ -462,7 +464,7 @@ import { URL } from '../helper/consts.js'
           // val.per=xy;
           // let xy = val.per.toFixed(2);
           // val.per = xy;
-          let ab =val.bts.toFixed(2);
+          let ab =val.bts.toFixed(10);
           val.bts=ab;
           //console.log(val.live)
           let cd = val.live.toFixed(2);
@@ -608,7 +610,16 @@ import { URL } from '../helper/consts.js'
         loading: false,
         timer: '',
         data : [],
-        items : ['1','2','3','4','5','6','7','8','9','10'],
+        items : [{ name: 'PWM', value: '1' },
+          { name: 'NEG', value: '2' },
+          { name: '2p', value: '3' },
+          { name: 'little', value: '4' },
+          { name: 'Index', value: '5' },
+          { name: 'select 1', value: '6' },
+          { name: 'select 2', value: '7' },
+          { name: 'select 3', value: '8' },
+          { name: 'select 4', value: '9' },
+          { name: 'select 5', value: '10' },],
         portfolio : '1',
         totalbts : 0,
         marketcap: 0,
