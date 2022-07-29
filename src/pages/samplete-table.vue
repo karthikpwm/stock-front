@@ -364,7 +364,7 @@ import { URL } from '../helper/consts.js'
         .get(`https://yfapi.net/v6/finance/quote?region=IN&lang=en&symbols=${joinSymbol},%2C%5ECRSLDX,%5ENSEI,%2CNIFTY_MIDCAP_100.NS,%2C%5ECNXSC`, {
         headers: {
            'accept': 'application/json',
-        'X-API-KEY': 'M4zMWQCCgQ8bKuEaofZkO50bfnZpyezf2uwjkByV'
+        'X-API-KEY': 'GrZHDJq86E3oY2mc35Vab53YzQ3iF6PV1YpTC1of'
         }
          }).then( (res) => {
         //console.log('res',res.data.quoteResponse.result)
@@ -418,7 +418,7 @@ import { URL } from '../helper/consts.js'
    
         resData = resData.map(function(val) {
          // val.per =(val.weightage / total) * 100;
-          
+          console.log(val.weightage)
           val.per = val.weightage;
           val.live =  analyticLiveData[val.symbol] || 0
           val.allmarketcap = analticmarketcap[val.symbol] || 0
