@@ -381,7 +381,7 @@ import { URL } from '../helper/consts.js'
            },
         headers: {
            'accept': 'application/json',
-        'X-API-KEY': '1yphCd0yJh9nooEWtmiFK4nMVnxx8sbE1t76fZFJ'
+        'X-API-KEY': 'M4zMWQCCgQ8bKuEaofZkO50bfnZpyezf2uwjkByV'
         }
          }).then( (res) => {
         //console.log('res',res.data.quoteResponse.result)
@@ -431,11 +431,72 @@ import { URL } from '../helper/consts.js'
 
 //console.log('ok',analyticLiveData)
 
-});
+}).catch(async(res)=>{
+  console.log(res)
+ await  axios
+        .get(`https://yfapi.net/v6/finance/quote`,
+         {
+           params: {
+
+             region: 'IN',
+             lang : 'EN',
+             symbols : joinSymbol
+           },
+        headers: {
+           'accept': 'application/json',
+        'X-API-KEY': '1yphCd0yJh9nooEWtmiFK4nMVnxx8sbE1t76fZFJ'
+        }
+         }).then( (res) => {
+        console.log('res',res.data.quoteResponse.result)
+        let resData = res.data.quoteResponse.result
+       //let nifty = res.data.quoteResponse.result.regularMarketChangePercent
+        resData.forEach(element => {
+         const ab= (element.symbol).slice(0, -3)
    
+          
+         analyticLiveData[ab] = (element.regularMarketChangePercent)
+         analticmarketcap[ab] =(element.marketCap)
+         //console.log("com  :"+ ab +"markcap  :"+analticmarketcap[ab])
+        
+
+        //analyticLiveData[element.symbol] = (element.regularMarketDayHigh) * (75) ;
+        //console.log(resData)
+        //let nifty = 0;
+        //console.log('my',nifty)
+        
+        if(element.symbol == '^CRSLDX') {
+          this.nifty = element.regularMarketChangePercent
+          let bc = this.nifty.toFixed(2);
+          
+          this.nifty = bc;
+        }
+        if(element.symbol == '^NSEI') {
+          this.nifty50 = element.regularMarketChangePercent
+          let bc = this.nifty50.toFixed(2);
+          
+          this.nifty50 = bc;
+        }
+        if(element.symbol == 'NIFTY_MIDCAP_100.NS') {
+          this.niftymidcap = element.regularMarketChangePercent
+          let bc = this.niftymidcap.toFixed(2);
+          
+          this.niftymidcap = bc;
+        }
+        if(element.symbol == '^CNXSC') {
+          this.niftysmlcap = element.regularMarketChangePercent
+          let bc = this.niftysmlcap.toFixed(2);
+          
+          this.niftysmlcap = bc;
+        }
+
+        
+      });
+        })
+})       
+        console.log(resData)
         resData = resData.map(function(val) {
          // val.per =(val.weightage / total) * 100;
-          console.log(val.weightage)
+         val.weightage= parseFloat(val.weightage).toFixed(4)
           val.per = val.weightage;
           val.live =  analyticLiveData[val.symbol] || 0
           val.allmarketcap = analticmarketcap[val.symbol] || 0
@@ -464,7 +525,7 @@ import { URL } from '../helper/consts.js'
           // val.per=xy;
           // let xy = val.per.toFixed(2);
           // val.per = xy;
-          let ab =val.bts.toFixed(10);
+          let ab =val.bts.toFixed(4);
           val.bts=ab;
           //console.log(val.live)
           let cd = val.live.toFixed(2);
